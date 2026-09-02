@@ -77,6 +77,7 @@ libGDX se utilizará para interactuar con la ventana, gráficos, audio y disposi
 
 El repositorio se organizará como un proyecto con módulos separados, se propone el esqueleto inicial, basados en documentación de libGDX e investigación de desarrollo, como:
 
+```text
 motor-juegos-local-is/
 ├── engine-api/          # Contratos públicos para los juegos
 ├── engine-core/         # Servicios y ciclo principal del motor
@@ -84,6 +85,7 @@ motor-juegos-local-is/
 ├── games/               # Juegos demostrativos
 ├── assets/              # Imágenes, fuentes, mapas y audio
 └── docs/                # Arquitectura y documentación del proyecto
+```
 
 Esta estructura es preliminar y se implementará de manera incremental con probables cambios sobre la marcha. La regla principal será que los juegos puedan utilizar la API del motor, pero el núcleo del motor no dependa de un juego concreto.
 
