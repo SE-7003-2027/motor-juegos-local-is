@@ -136,6 +136,6 @@ En la versión inicial del proyecto no se contempla:
 
 ## Recursos del proyecto
 
-- [Project]https://github.com/orgs/SE-7003-2027/projects/6/views/1
+- [Project](https://github.com/orgs/SE-7003-2027/projects/6/views/1)
 - [Wiki](ENLACE_A_LA_WIKI) 
 - [Guía de colaboración](https://github.com/SE-7003-2027/motor-juegos-local-is/blob/main/CONTRIBUTING.md)
