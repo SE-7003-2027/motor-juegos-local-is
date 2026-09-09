@@ -122,3 +122,20 @@ Durante el Sprint 1 se realizarán las siguientes actividades:
 - Definición de la descripción general, los objetivos y el alcance.
 - Revisión y aprobación del README por parte del equipo.
 - Preparación inicial del backlog para los siguientes sprints.
+
+## Fuera del alcance
+
+En la versión inicial del proyecto no se contempla:
+
+- Multijugador en línea o conexión entre diferentes computadoras.
+- Desarrollo para dispositivos móviles o consolas.
+- Soporte para juegos 3D.
+- Sistemas avanzados de física o simulación.
+- Creación de un editor visual de niveles.
+- Implementación de servicios externos o sistemas de cuentas de usuario.
+
+## Recursos del proyecto
+
+- [Project](https://github.com/SE-7003-2027/motor-juegos-local-is/blob/main/CONTRIBUTING.md)
+- [Wiki](ENLACE_A_LA_WIKI) 
+- [Guía de colaboración](https://github.com/SE-7003-2027/motor-juegos-local-is/blob/main/CONTRIBUTING.md)
