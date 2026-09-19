@@ -60,11 +60,11 @@ Cualquier cambio a estos límites debe justificarse, registrarse y priorizarse d
 ## 5. Requisitos no funcionales iniciales
 .
 1. **Extensibilidad:** debe ser posible agregar un juego nuevo siguiendo una guía documentada, sin modificar `engine-core`.
-3. **Mantenibilidad:** el código debe seguir las convenciones definidas por el equipo (issue #5) y pasar por revisión de Pull Request antes de integrarse a `main`.
-4. **Compatibilidad:** el motor debe ejecutarse en escritorio mediante LWJGL3 sobre Java 21 con libGDX.
-5. **Rendimiento:** el ciclo de juego debe mantener una tasa de cuadros estable adecuada para juegos 2D casuales (sin caídas perceptibles de FPS en los juegos demo).
-6. **Pruebas:** la lógica principal que no dependa de gráficos debe contar con pruebas automatizadas (JUnit).
-7. **Documentación:** la arquitectura y el procedimiento para integrar un juego nuevo deben quedar documentados y accesibles para todo el equipo.
+2. **Mantenibilidad:** el código debe seguir las convenciones definidas por el equipo (issue #5) y pasar por revisión de Pull Request antes de integrarse a `main`.
+3. **Compatibilidad:** el motor debe ejecutarse en escritorio mediante LWJGL3 sobre Java 21 con libGDX.
+4. **Rendimiento:** el ciclo de juego debe mantener una tasa de cuadros estable adecuada para juegos 2D casuales (sin caídas perceptibles de FPS en los juegos demo).
+5. **Pruebas:** la lógica principal que no dependa de gráficos debe contar con pruebas automatizadas (JUnit).
+6. **Documentación:** la arquitectura y el procedimiento para integrar un juego nuevo deben quedar documentados y accesibles para todo el equipo.
 
 ## 6. Criterios de éxito del producto
 
