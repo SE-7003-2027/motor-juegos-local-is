@@ -6,11 +6,11 @@ Motor modular para desarrollar juegos multijugador locales en 2D. El proyecto bu
 
 ## Equipo: Void Team
 
-- Blancas Ochoa Alan
-- Cárdenas Galicia Diego
-- Castro Cázares Héctor Alonso
-- Díaz Anavia Javier Omar
-- Mejía Reyes Juan Daniel
+- Alan Blancas
+- Diego Cárdenas
+- Héctor Castro
+- Javier Díaz
+- Juan Mejía
 
 ## Descripción
 
@@ -21,8 +21,8 @@ Para comprobar que el motor es reutilizable y extensible, el proyecto incluirá 
 ## Objetivos específicos
 
 - Definir una arquitectura modular que separe el núcleo del motor de los juegos.
-- Permitir partidas locales de dos a cuatro jugadores en una misma computadora.
-- Admitir teclado y controles como dispositivos de entrada.
+- Permitir partidas locales de al menos dos jugadores con teclado en una misma computadora.
+- Explorar la ampliación hasta cuatro jugadores y el uso de controles compatibles si el tiempo lo permite.
 - Proporcionar servicios reutilizables de escenas, gráficos 2D, recursos, interacciones y puntuación.
 - Desarrollar una interfaz común para registrar e iniciar juegos independientes.
 - Crear al menos tres juegos que utilicen las capacidades del motor.
@@ -33,8 +33,8 @@ Para comprobar que el motor es reutilizable y extensible, el proyecto incluirá 
 
 - Aplicación de escritorio en 2D.
 - Multijugador local en una misma computadora.
-- Soporte previsto para dos a cuatro jugadores.
-- Entrada mediante teclado y controles compatibles.
+- Soporte mínimo para dos jugadores; ampliación posible hasta cuatro.
+- Entrada mediante teclado; controles compatibles como objetivo opcional.
 - Menú principal, selección de juego y configuración básica de partida.
 - Administración de escenas o estados, como menú, partida, pausa y resultados.
 - Dibujo de sprites, figuras y texto.
@@ -51,14 +51,14 @@ Estos límites podrán revisarse durante el proyecto, pero cualquier cambio debe
 
 ## Usuarios objetivo
 
-El motor está dirigido principalmente a estudiantes y desarrolladores que quieran crear juegos 2D multijugador locales pequeños reutilizando una base común. Los juegos demostrativos estarán orientados a grupos de dos a cuatro personas que compartan una misma computadora.
+El motor está dirigido principalmente a estudiantes y desarrolladores que quieran crear juegos 2D multijugador locales pequeños reutilizando una base común. Los juegos demostrativos estarán orientados a grupos de al menos dos personas que compartan una misma computadora.
 
 ## Juegos demostrativos propuestos
 
 La selección inicial considera los siguientes juegos:
 
 1. **Pong:** demostrará movimiento, entrada de dos jugadores, colisiones, puntuación y reinicio de rondas.
-2. **Tron:** demostrará entrada simultánea de hasta cuatro jugadores, eliminación y colisiones con rastros.
+2. **Tron:** demostrará entrada simultánea de dos jugadores, eliminación y colisiones con rastros; se ampliará hasta cuatro jugadores si el tiempo lo permite.
 3. **Guerra de tanques:** demostrará movimiento libre, proyectiles, obstáculos, recursos gráficos, audio y configuración de partidas.
 
 La selección podrá ajustarse de acuerdo con el tiempo disponible y capacidad final del motor, conservando el objetivo de demostrar capacidades diferentes del motor.
