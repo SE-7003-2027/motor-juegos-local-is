@@ -113,15 +113,87 @@ Las responsabilidades de coordinación, revisión, integración y documentación
 - Guía para desarrollar e integrar un juego nuevo.
 - Distribución ejecutable de la versión final.
 
+## Estados previos
+
+En el Sprint 1 se definieron la descripción general del proyecto, los objetivos, el alcance, la tecnología propuesta y la organización inicial del trabajo.
+
 ## Estado actual
 
-Durante el Sprint 1 se realizarán las siguientes actividades:
+Durante el Sprint 2 se implemento y verificó una primera demo funcional del motor. Actualmente cuenta con:
 
-- Creación y configuración del repositorio.
-- Incorporación de los cinco integrantes como colaboradores.
-- Definición de la descripción general, los objetivos y el alcance.
-- Revisión y aprobación del README por parte del equipo.
-- Preparación inicial del backlog para los siguientes sprints.
+- Ciclo básico de juego.
+- Lectura de entrada mediante las flechas del teclado.
+- Movimiento continuo de una figura 2D.
+- Actualización del movimiento mediante deltaTime.
+- Renderizado de una figura mediante ShapeRenderer.
+- Ejecución de la aplicación de escritorio mediante   LWJGL3.
+
+La demo fue compilada y ejecutada correctamente mediante Gradle.
+
+## Ejecutar la demo
+
+### Requisitos
+
+* Tener instalado Java 21.
+* Tener Git instalado para clonar el repositorio.
+* Una computadora compatible con la ejecución de una aplicación de escritorio mediante LWJGL3.
+
+### Obtener el proyecto
+
+Clonar el repositorio y entrar a la carpeta del proyecto:
+
+```bash
+git clone https://github.com/SE-7003-2027/motor-juegos-local-is.git
+cd motor-juegos-local-is
+```
+
+### Compilar el proyecto
+
+Desde la carpeta raíz del proyecto, ejecutar:
+
+**Windows:**
+```text
+gradlew.bat build
+```
+
+**Linux / macOS:**
+```bash
+./gradlew build
+```
+
+Si la compilación termina correctamente, Gradle mostrará el mensaje `BUILD SUCCESSFUL`.
+
+### Ejecutar la aplicación
+
+Para iniciar la demo de escritorio, ejecutar:
+
+**Windows:**
+```text
+gradlew.bat lwjgl3:run
+```
+
+**Linux / macOS:**
+```bash
+./gradlew lwjgl3:run
+```
+
+**Nota:** en Linux/macOS, `gradlew` puede necesitar permisos de ejecución. Si aparece un error de permisos, ejecuta:
+
+```bash
+chmod +x gradlew
+```
+
+### Controles
+
+El rectángulo se mueve utilizando las flechas del teclado:
+
+* ↑ Mover hacia arriba
+* ↓ Mover hacia abajo
+* ← Mover hacia la izquierda
+* → Mover hacia la derecha
+
+Se puede mantener presionada una flecha para realizar un movimiento continuo.
+
 
 ## Fuera del alcance
 
@@ -137,5 +209,5 @@ En la versión inicial del proyecto no se contempla:
 ## Recursos del proyecto
 
 - [Project](https://github.com/orgs/SE-7003-2027/projects/6/views/1)
-- [Wiki](https://github.com/SE-7003-2027/motor-juegos-local-is/wiki)
+- [Wiki](https://github.com/SE-7003-2027/motor-juegos-local-is/wiki) 
 - [Guía de colaboración](https://github.com/SE-7003-2027/motor-juegos-local-is/blob/main/CONTRIBUTING.md)
