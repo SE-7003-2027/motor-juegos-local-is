@@ -185,15 +185,14 @@ chmod +x gradlew
 
 ### Controles
 
-El rectángulo se mueve utilizando las flechas del teclado:
+La demostración muestra dos rectángulos controlados independientemente:
 
-* ↑ Mover hacia arriba
-* ↓ Mover hacia abajo
-* ← Mover hacia la izquierda
-* → Mover hacia la derecha
+- **Jugador 1 — rectángulo verde:** `W`, `A`, `S`, `D`.
+- **Jugador 2 — rectángulo azul:** flechas del teclado.
 
-Se puede mantener presionada una flecha para realizar un movimiento continuo.
+Ambos jugadores pueden mantener teclas presionadas y moverse simultáneamente. Las direcciones opuestas de un mismo eje se cancelan.
 
+La demostración consulta acciones mediante el servicio público de entrada del motor; las asignaciones de teclas están centralizadas en su implementación de teclado.
 
 ## Fuera del alcance
 
