@@ -8,6 +8,7 @@ import java.util.Objects;
 public class GameContext {
     // El servicio de entrada de jugadores locales.
     private final PlayerInput input;
+    private final Renderer2D renderer;
 
     /**
      * Crea un contexto de juego con los servicios del motor.
@@ -15,10 +16,17 @@ public class GameContext {
      * @param input servicio de entrada de jugadores locales
      * @throws NullPointerException si el servicio de entrada es null
      */
-    public GameContext(PlayerInput input) {
+    public GameContext(PlayerInput input, Renderer2D renderer) {
         this.input = Objects.requireNonNull(
             input,
             "El servicio de entrada no puede ser null"
+        );
+
+        this.renderer = Objects.requireNonNull(
+            renderer,
+
+             "El servicio de renderizado no puede ser null"
+
         );
     }
 
@@ -30,5 +38,16 @@ public class GameContext {
      */
     public PlayerInput input() {
         return input;
+    }
+
+    /**
+     * Devuelve el servicio de renderizado 2D 
+     * 
+     * @return servicio renderizado 2D
+     */
+
+    public Renderer2D renderer() {
+        return renderer;
+
     }
 }
