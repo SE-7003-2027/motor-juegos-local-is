@@ -75,7 +75,7 @@ public class MovingRectangleDemo implements LocalGame {
         renderer.drawRect(player1X, player1Y, SIZE, SIZE, 0f, 1f, 0f, 1f);
         renderer.drawRect(player2X, player2Y, SIZE, SIZE, 0f, 0f, 1f, 1f);
 
-        renderer.drawText("J1: WASD   J2: Flechas", 20f, 580f, 1f, 1f, 1f, 1f);
+        renderer.drawText("J1: WASD   J2: Flechas", 20f, 450f, 1f, 1f, 1f, 1f);
     }
 
     @Override

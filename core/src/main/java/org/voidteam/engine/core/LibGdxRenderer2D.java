@@ -5,6 +5,8 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.utils.ScreenUtils;
 import org.voidteam.engine.api.Renderer2D;
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.GL20;
 
 /**
  * Implementación del servicio de renderizado basada en libGDX.
@@ -30,11 +32,16 @@ public class LibGdxRenderer2D implements Renderer2D {
 
     @Override
     public void drawRect(float x, float y, float width, float height,
-                          float red, float green, float blue, float alpha) {
+                        float red, float green, float blue, float alpha) {
+        Gdx.gl.glEnable(GL20.GL_BLEND);
+        Gdx.gl.glBlendFunc(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
+
         shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
         shapeRenderer.setColor(red, green, blue, alpha);
         shapeRenderer.rect(x, y, width, height);
         shapeRenderer.end();
+
+        Gdx.gl.glDisable(GL20.GL_BLEND);
     }
 
     @Override
