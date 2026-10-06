@@ -1,10 +1,12 @@
 package org.voidteam.engine.core;
 
-import com.badlogic.gdx.ApplicationAdapter;
-import com.badlogic.gdx.Gdx;
 import java.util.Objects;
+
 import org.voidteam.engine.api.GameContext;
 import org.voidteam.engine.api.LocalGame;
+
+import com.badlogic.gdx.ApplicationAdapter;
+import com.badlogic.gdx.Gdx;
 
 /**
  * Ejecuta un juego mediante el contrato público del motor.
@@ -12,6 +14,8 @@ import org.voidteam.engine.api.LocalGame;
 public class GameEngine extends ApplicationAdapter {
     /** Juego que se ejecutará mediante el motor. */
     private final LocalGame game;
+    private LibGdxRenderer2D renderer; 
+
 
     /**
      * Crea un motor de juego que ejecutará el juego dado.
@@ -29,7 +33,8 @@ public class GameEngine extends ApplicationAdapter {
     /** Inicializa el motor y el juego. */
     @Override
     public void create() {
-        GameContext context = new GameContext(new KeyboardInput());
+        renderer = new LibGdxRenderer2D();
+        GameContext context = new GameContext(new KeyboardInput(), renderer);
         game.create(context);
     }
 
@@ -45,5 +50,6 @@ public class GameEngine extends ApplicationAdapter {
     @Override
     public void dispose() {
         game.dispose();
+        renderer.dispose();
     }
 }

@@ -1,12 +1,10 @@
 package org.voidteam.games.demo;
 
-import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import com.badlogic.gdx.utils.ScreenUtils;
 import org.voidteam.engine.api.GameContext;
 import org.voidteam.engine.api.LocalGame;
 import org.voidteam.engine.api.PlayerAction;
 import org.voidteam.engine.api.PlayerInput;
+import org.voidteam.engine.api.Renderer2D;
 
 /**
  * Demostración de entrada independiente para dos jugadores.
@@ -17,7 +15,7 @@ public class MovingRectangleDemo implements LocalGame {
     private static final float SIZE = 50f;
 
     private PlayerInput input;
-    private ShapeRenderer shapeRenderer;
+    private Renderer2D renderer;
 
     private float player1X;
     private float player1Y;
@@ -27,13 +25,12 @@ public class MovingRectangleDemo implements LocalGame {
     @Override
     public void create(GameContext context) {
         input = context.input();
+        renderer = context.renderer();
 
         player1X = 100f;
         player1Y = 100f;
         player2X = 400f;
         player2Y = 100f;
-
-        shapeRenderer = new ShapeRenderer();
     }
 
     @Override
@@ -73,21 +70,16 @@ public class MovingRectangleDemo implements LocalGame {
 
     @Override
     public void render() {
-        ScreenUtils.clear(0.15f, 0.15f, 0.2f, 1f);
+        renderer.clear(0.15f, 0.15f, 0.2f, 1f);
 
-        shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
+        renderer.drawRect(player1X, player1Y, SIZE, SIZE, 0f, 1f, 0f, 1f);
+        renderer.drawRect(player2X, player2Y, SIZE, SIZE, 0f, 0f, 1f, 1f);
 
-        shapeRenderer.setColor(Color.GREEN);
-        shapeRenderer.rect(player1X, player1Y, SIZE, SIZE);
-
-        shapeRenderer.setColor(Color.BLUE);
-        shapeRenderer.rect(player2X, player2Y, SIZE, SIZE);
-
-        shapeRenderer.end();
+        renderer.drawText("J1: WASD   J2: Flechas", 20f, 580f, 1f, 1f, 1f, 1f);
     }
 
     @Override
     public void dispose() {
-        shapeRenderer.dispose();
+        // Los recursos gráficos pertenecen al motor: el juego no los libera.
     }
 }
