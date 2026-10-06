@@ -3,7 +3,7 @@ package org.voidteam.engine.lwjgl3;
 import com.badlogic.gdx.backends.lwjgl3.Lwjgl3Application;
 import com.badlogic.gdx.backends.lwjgl3.Lwjgl3ApplicationConfiguration;
 import org.voidteam.engine.core.GameEngine;
-import org.voidteam.games.demo.MovingRectangleDemo;
+import org.voidteam.games.pong.PongGame;
 
 /** Launches the desktop (LWJGL3) application. */
 public class Lwjgl3Launcher {
@@ -13,11 +13,11 @@ public class Lwjgl3Launcher {
     }
 
     private static Lwjgl3Application createApplication() {
-    return new Lwjgl3Application(
-        new GameEngine(new MovingRectangleDemo()),
-        getDefaultConfiguration()
-    );
-}
+        return new Lwjgl3Application(
+            new GameEngine(new PongGame()),
+            getDefaultConfiguration()
+        );
+    }
 
     private static Lwjgl3ApplicationConfiguration getDefaultConfiguration() {
         Lwjgl3ApplicationConfiguration configuration = new Lwjgl3ApplicationConfiguration();
