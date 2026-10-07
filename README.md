@@ -2,7 +2,7 @@
 
 Motor modular para desarrollar juegos multijugador locales en 2D. El proyecto busca proporcionar componentes reutilizables para crear distintos juegos competitivos que puedan ejecutarse en una misma computadora y utilizar teclado (y/o posiblemente controles) como dispositivos de entrada.
 
-> **Estado del proyecto:** Sprint 1: definición y alcance del proyecto.
+> **Estado del proyecto:** Sprint 3: Contrato motor-juego, integración de Pong como primer juego.
 
 ## Equipo: Void Team
 
@@ -73,21 +73,31 @@ La selección podrá ajustarse de acuerdo con el tiempo disponible y capacidad f
 
 libGDX se utilizará para interactuar con la ventana, gráficos, audio y dispositivos; la arquitectura modular, las interfaces y los servicios de alto nivel serán desarrollados por el equipo.
 
-## Organización prevista
+## Organización del repositorio
 
-El repositorio se organizará como un proyecto con módulos separados, se propone el esqueleto inicial, basados en documentación de libGDX e investigación de desarrollo, como:
+El repositorio es un proyecto Gradle con dos módulos, `core` y `lwjgl3`:
 
 ```text
 motor-juegos-local-is/
-├── engine-api/          # Contratos públicos para los juegos
-├── engine-core/         # Servicios y ciclo principal del motor
-├── launcher/            # Inicio
-├── games/               # Juegos demostrativos
-├── assets/              # Imágenes, fuentes, mapas y audio
-└── docs/                # Arquitectura y documentación del proyecto
+├── core/                              # Motor y juegos (módulo Gradle)
+│   └── src/
+│       ├── main/java/org/voidteam/
+│       │   ├── engine/
+│       │   │   ├── api/               # Contratos públicos: LocalGame, GameContext,
+│       │   │   │                      # PlayerInput, PlayerAction, Renderer2D
+│       │   │   └── core/              # Implementaciones: GameEngine, KeyboardInput,
+│       │   │                          # LibGdxRenderer2D
+│       │   └── games/
+│       │       ├── demo/              # MovingRectangleDemo (demo del Sprint 2)
+│       │       └── pong/              # PongGame
+│       └── test/java/org/voidteam/games/pong/
+│                                      # PongGameTest
+├── lwjgl3/                           # Lanzador de escritorio (Lwjgl3Launcher)
+├── assets/                            # Recursos del juego
+└── docs/                              # Documentación (PRD.md)
 ```
 
-Esta estructura es preliminar y se implementará de manera incremental con probables cambios sobre la marcha. La regla principal será que los juegos puedan utilizar la API del motor, pero el núcleo del motor no dependa de un juego concreto.
+La regla principal es que los juegos usan las interfaces públicas del paquete `engine`, pero el motor no depende de ningún juego concreto.
 
 ## Metodología de trabajo
 
@@ -102,6 +112,7 @@ El flujo de colaboración previsto es:
 
 Las responsabilidades de coordinación, revisión, integración y documentación se rotarán entre los integrantes para compartir el conocimiento del proyecto.
 
+
 ## Entregables previstos
 
 - Núcleo y API del motor.
@@ -113,24 +124,79 @@ Las responsabilidades de coordinación, revisión, integración y documentación
 - Guía para desarrollar e integrar un juego nuevo.
 - Distribución ejecutable de la versión final.
 
-## Estados previos
-
-En el Sprint 1 se definieron la descripción general del proyecto, los objetivos, el alcance, la tecnología propuesta y la organización inicial del trabajo.
 
 ## Estado actual
 
-Durante el Sprint 2 se implemento y verificó una primera demo funcional del motor. Actualmente cuenta con:
+Durante el Sprint 3 se implementó y verificó la integración de Pong como un juego, este utiliza las capacidades del motor.
 
-- Ciclo básico de juego.
-- Lectura de entrada mediante las flechas del teclado.
-- Movimiento continuo de una figura 2D.
-- Actualización del movimiento mediante deltaTime.
-- Renderizado de una figura mediante ShapeRenderer.
-- Ejecución de la aplicación de escritorio mediante   LWJGL3.
+Actualmente se cuenta con:
 
-La demo fue compilada y ejecutada correctamente mediante Gradle.
+- Implementación de `PongGame` como un juego independiente mediante la interfaz `LocalGame`.
+- Separación entre el juego y las implementaciones específicas de libGDX mediante los servicios del motor.
+- Entrada de los jugadores mediante `PlayerInput`.
+- Renderizado mediante `Renderer2D`.
+- Actualización del juego mediante `deltaTime`.
+- Soporte para dos jugadores en una misma computadora.
+- Movimiento automático de la pelota.
+- Colisiones entre la pelota y las paletas.
+- Sistema de puntuación.
+- Condición de victoria al llegar a 5 puntos.
+- Reinicio de la partida después de finalizar.
+- Pruebas automatizadas para comprobar la integración básica de `PongGame` con los servicios del motor.
+- Ejecución de Pong mediante LWJGL3.
 
-## Ejecutar la demo
+La partida de Pong fue probada manualmente y se verificó que ambos jugadores pueden controlar sus paletas, que la pelota se mueve automáticamente, que la partida termina cuando un jugador llega a 5 puntos y que puede reiniciarse mediante la tecla de flecha arriba.
+
+## Arquitectura
+
+El proyecto separa el motor de los juegos mediante interfaces públicas. Un juego implementa `LocalGame` y recibe los servicios que necesita mediante `GameContext`.
+
+La ejecución de Pong sigue el siguiente flujo:
+
+```text
+Lwjgl3Launcher
+      |
+      v
+  GameEngine
+      |
+      v
+   PongGame
+      |
+      v
+  GameContext
+    /        \
+   v          v
+PlayerInput  Renderer2D
+   |           |
+   v           v
+KeyboardInput  LibGdxRenderer2D
+   |           |
+   v           v
+ libGDX      libGDX
+ ```
+
+### Dirección de dependencias
+
+- `engine.api` contiene solo los contratos y no depende de libGDX ni de ningún juego.
+- Los juegos (`games.*`) dependen únicamente de `engine.api`.
+- `engine.core` implementa los contratos sobre libGDX.
+- El launcher usa libGDX para crear la ventana y es el único punto donde se indica qué
+  juego iniciar; el resto del motor no conoce ningún juego concreto.
+
+### Cómo el motor inicia un juego
+
+`Lwjgl3Launcher` crea la ventana y arranca `GameEngine` con el `LocalGame` elegido. El motor
+le entrega un `GameContext` con los servicios de entrada y renderizado, y en cada ciclo llama
+al juego con `deltaTime`.
+
+### Dónde colocar un juego nuevo
+
+1. Crear un paquete nuevo en `core/src/main/java/org/voidteam/games/<nombre-del-juego>/`.
+2. Implementar la interfaz `LocalGame` y usar solo los servicios de `GameContext`.
+3. No modificar `engine.api` ni `engine.core` para agregar condiciones del juego.
+4. Indicar al launcher (módulo `lwjgl3`) qué juego iniciar.
+
+## Ejecutar Pong
 
 ### Requisitos
 
@@ -163,9 +229,9 @@ gradlew.bat build
 
 Si la compilación termina correctamente, Gradle mostrará el mensaje `BUILD SUCCESSFUL`.
 
-### Ejecutar la aplicación
+### Ejecutar Pong
 
-Para iniciar la demo de escritorio, ejecutar:
+Para iniciar el juego, ejecutar:
 
 **Windows:**
 ```text
@@ -177,7 +243,7 @@ gradlew.bat lwjgl3:run
 ./gradlew lwjgl3:run
 ```
 
-**Nota:** en Linux/macOS, `gradlew` puede necesitar permisos de ejecución. Si aparece un error de permisos, ejecuta:
+**Nota:** en Linux/macOS, `gradlew` puede necesitar permisos de ejecución. Si aparece un error de permisos, ejecutar:
 
 ```bash
 chmod +x gradlew
@@ -185,14 +251,14 @@ chmod +x gradlew
 
 ### Controles
 
-La demostración muestra dos rectángulos controlados independientemente:
+Pong es un juego para dos jugadores:
 
-- **Jugador 1 — rectángulo verde:** `W`, `A`, `S`, `D`.
-- **Jugador 2 — rectángulo azul:** flechas del teclado.
+- **Jugador 1:** `W` para subir y `S` para bajar.
+- **Jugador 2:** `↑` para subir y `↓` para bajar.
+- El jugador que llegue primero a **5 puntos** gana.
+- Después de terminar la partida, se puede presionar `↑` para reiniciar.
 
-Ambos jugadores pueden mantener teclas presionadas y moverse simultáneamente. Las direcciones opuestas de un mismo eje se cancelan.
-
-La demostración consulta acciones mediante el servicio público de entrada del motor; las asignaciones de teclas están centralizadas en su implementación de teclado.
+Los controles son gestionados por el servicio de entrada del motor. Pong no consulta directamente el teclado de libGDX.
 
 ## Fuera del alcance
 
@@ -210,3 +276,4 @@ En la versión inicial del proyecto no se contempla:
 - [Project](https://github.com/orgs/SE-7003-2027/projects/6/views/1)
 - [Wiki](https://github.com/SE-7003-2027/motor-juegos-local-is/wiki) 
 - [Guía de colaboración](https://github.com/SE-7003-2027/motor-juegos-local-is/blob/main/CONTRIBUTING.md)
+
