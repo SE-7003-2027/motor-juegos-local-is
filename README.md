@@ -141,11 +141,11 @@ Actualmente se cuenta con:
 - Colisiones entre la pelota y las paletas.
 - Sistema de puntuación.
 - Condición de victoria al llegar a 5 puntos.
-- Reinicio de la partida después de finalizar.
+- Reinicio de la partida después de finalizar (Siempre y cuando hagas una nueva pulsación de las teclas `↑` o `w` )
 - Pruebas automatizadas para comprobar la integración básica de `PongGame` con los servicios del motor.
 - Ejecución de Pong mediante LWJGL3.
 
-La partida de Pong fue probada manualmente y se verificó que ambos jugadores pueden controlar sus paletas, que la pelota se mueve automáticamente, que la partida termina cuando un jugador llega a 5 puntos y que puede reiniciarse mediante la tecla de flecha arriba.
+La partida de Pong fue probada manualmente y se verificó que ambos jugadores pueden controlar sus paletas, que la pelota se mueve automáticamente, que la partida termina cuando un jugador llega a 5 puntos y que puede reiniciarse mediante la tecla de flecha arriba `↑` si eres el jugador 2 o la tecla `w` si eres el jugador 1. Mantener la tecla presionada al finalizar la partida no provoca un reinicio automático.
 
 ## Arquitectura
 
@@ -196,7 +196,7 @@ al juego con `deltaTime`.
 3. No modificar `engine.api` ni `engine.core` para agregar condiciones del juego.
 4. Indicar al launcher (módulo `lwjgl3`) qué juego iniciar.
 
-## Ejecutar Pong
+## Ejecutar Juegos
 
 ### Requisitos
 
@@ -229,10 +229,9 @@ gradlew.bat build
 
 Si la compilación termina correctamente, Gradle mostrará el mensaje `BUILD SUCCESSFUL`.
 
-### Ejecutar Pong
+### Seleccionar el juego
 
-Para iniciar el juego, ejecutar:
-
+Este se selecciona por medio de comandos en la terminal, pong es el juego establecido por defecto.
 **Windows:**
 ```text
 gradlew.bat lwjgl3:run
@@ -243,20 +242,45 @@ gradlew.bat lwjgl3:run
 ./gradlew lwjgl3:run
 ```
 
-**Nota:** en Linux/macOS, `gradlew` puede necesitar permisos de ejecución. Si aparece un error de permisos, ejecutar:
-
-```bash
-chmod +x gradlew
+Existe la opción de elegir el juego pong mediante los comandos:
+**Windows:**
+```text
+gradlew.bat lwjgl3:run --args="pong"
 ```
 
-### Controles
+**Linux / macOS:**
+```bash
+./gradlew lwjgl3:run --args="pong"
+```
+
+Existe la opción de elegir el la demo mediante los siguientes comandos:
+**Windows:**
+```text
+gradlew.bat lwjgl3:run --args="demo"
+```
+
+**Linux / macOS:**
+```bash
+./gradlew lwjgl3:run --args="demo"
+```
+
+Las opciones disponibles son:
+
+- `pong`: inicia Pong.
+- `demo`: inicia el juego de demostración.
+- Sin argumentos: inicia Pong.
+- Cualquier otro argumento: muestra un mensaje indicando que el juego no es reconocido y muestra las opciones disponibles, sin iniciar ningún juego.
+
+
+### Controles de Pong
 
 Pong es un juego para dos jugadores:
 
 - **Jugador 1:** `W` para subir y `S` para bajar.
 - **Jugador 2:** `↑` para subir y `↓` para bajar.
 - El jugador que llegue primero a **5 puntos** gana.
-- Después de terminar la partida, se puede presionar `↑` para reiniciar.
+- Después de terminar la partida, el **Jugador 1** puede reiniciarla pulsando `W`, mientras que el **Jugador 2** puede reiniciarla pulsando `↑`.
+- Una aclaración útil es que para reiniciar la partida, la tecla debe soltarse y volver a presionarse. Mantener la tecla presionada cuando termina la partida no provoca un reinicio automático.
 
 Los controles son gestionados por el servicio de entrada del motor. Pong no consulta directamente el teclado de libGDX.
 
