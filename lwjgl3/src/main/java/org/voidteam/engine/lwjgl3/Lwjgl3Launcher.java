@@ -3,20 +3,40 @@ package org.voidteam.engine.lwjgl3;
 import com.badlogic.gdx.backends.lwjgl3.Lwjgl3Application;
 import com.badlogic.gdx.backends.lwjgl3.Lwjgl3ApplicationConfiguration;
 import org.voidteam.engine.core.GameEngine;
+import org.voidteam.games.demo.MovingRectangleDemo;
 import org.voidteam.games.pong.PongGame;
 
 /** Launches the desktop (LWJGL3) application. */
 public class Lwjgl3Launcher {
     public static void main(String[] args) {
-        if (StartupHelper.startNewJvmIfRequired()) return; // This handles macOS support and helps on Windows.
-        createApplication();
+
+        if (StartupHelper.startNewJvmIfRequired()) return;
+
+        createApplication(args);
     }
 
-    private static Lwjgl3Application createApplication() {
-        return new Lwjgl3Application(
-            new GameEngine(new PongGame()),
-            getDefaultConfiguration()
-        );
+    private static Lwjgl3Application createApplication(String[] args) {
+
+        String game = args.length == 0 ? "pong" : args[0].toLowerCase();
+
+        switch (game) {
+            case "pong":
+                return new Lwjgl3Application(
+                    new GameEngine(new PongGame()),
+                    getDefaultConfiguration()
+                );
+
+            case "demo":
+                return new Lwjgl3Application(
+                    new GameEngine(new MovingRectangleDemo()),
+                    getDefaultConfiguration()
+                );
+
+            default:
+                System.out.println("Este juego no esta prsente " + game);
+                System.out.println("Opciones disponibles: pong, demo");
+                return null;
+        }
     }
 
     private static Lwjgl3ApplicationConfiguration getDefaultConfiguration() {

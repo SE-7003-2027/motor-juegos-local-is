@@ -23,11 +23,16 @@ public class PongGame implements LocalGame {
     private int p1Score, p2Score;
     private boolean gameOver;
 
+    private boolean p1UpPressedLastFrame;
+    private boolean p2UpPressedLastFrame;
+
     @Override
     public void create(GameContext context) {
         this.context = context;
         this.p1Score = 0;
         this.p2Score = 0;
+        this.p1UpPressedLastFrame = false;
+        this.p2UpPressedLastFrame = false;
         resetRound();
     }
 
@@ -46,22 +51,31 @@ public class PongGame implements LocalGame {
     public void update(float deltaTime) {
         PlayerInput input = context.input();
 
+        boolean p1UpPressed = input.isPressed(1, PlayerAction.UP);
+        boolean p2UpPressed = input.isPressed(2, PlayerAction.UP);
+
         if (gameOver) {
-            // Verifica a los jugadores 1 y 2
-            if (input.isPressed(1, PlayerAction.UP) || input.isPressed(2, PlayerAction.UP)) {
+            boolean newP1UpPress = p1UpPressed && !p1UpPressedLastFrame;
+            boolean newP2UpPress = p2UpPressed && !p2UpPressedLastFrame;
+
+            if (newP1UpPress || newP2UpPress) {
                 p1Score = 0;
                 p2Score = 0;
                 resetRound();
             }
+
+            p1UpPressedLastFrame = p1UpPressed;
+            p2UpPressedLastFrame = p2UpPressed;
+
             return;
         }
 
         // Controles J1 (Teclas W / S según KeyboardInput)
-        if (input.isPressed(1, PlayerAction.UP)) p1Y += PADDLE_SPEED * deltaTime;
+        if (p1UpPressed) p1Y += PADDLE_SPEED * deltaTime;
         if (input.isPressed(1, PlayerAction.DOWN)) p1Y -= PADDLE_SPEED * deltaTime;
         
         // Controles J2 (Flechas Arriba / Abajo según KeyboardInput)
-        if (input.isPressed(2, PlayerAction.UP)) p2Y += PADDLE_SPEED * deltaTime;
+        if (p2UpPressed) p2Y += PADDLE_SPEED * deltaTime;
         if (input.isPressed(2, PlayerAction.DOWN)) p2Y -= PADDLE_SPEED * deltaTime;
 
         // Límites paletas
@@ -91,6 +105,8 @@ public class PongGame implements LocalGame {
         // Puntuación
         if (ballX < 0) { p2Score++; checkWin(); }
         else if (ballX > WIDTH) { p1Score++; checkWin(); }
+        p1UpPressedLastFrame = p1UpPressed;
+        p2UpPressedLastFrame = p2UpPressed;
     }
 
     private void checkWin() {
