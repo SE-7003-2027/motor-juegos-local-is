@@ -28,4 +28,17 @@ public interface Renderer2D {
      */
     void drawText(String text, float x, float y,
                   float red, float green, float blue, float alpha);
+
+
+     /**
+     * Dibuja una imagen utilizando una ruta al directorio assets/.
+     *
+     * @param assetPath ruta de la imagen relativa a assets/
+     * @param x         posición horizontal de la esquina inferior izquierda
+     * @param y         posición vertical de la esquina inferior izquierda
+     * @param width     ancho con el que se dibujará la imagen
+     * @param height    alto con el que se dibujará la imagen
+     */
+    void drawImage(String assetPath, float x, float y,
+                   float width, float height);
 }
