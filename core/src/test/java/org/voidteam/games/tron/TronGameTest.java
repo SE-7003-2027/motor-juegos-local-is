@@ -130,5 +130,9 @@ class TronGameTest {
                 float red, float green, float blue, float alpha) {
             status = text;
         }
+
+        @Override
+        public void drawImage(String assetPath, float x, float y,float width, float height) {
+        }
     }
 }
