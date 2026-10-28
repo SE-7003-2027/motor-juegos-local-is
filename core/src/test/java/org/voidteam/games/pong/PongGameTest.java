@@ -91,5 +91,14 @@ class PongGameTest {
                 float alpha) {
             drawTextCalled = true;
         }
+
+        @Override
+        public void drawImage(
+            String assetPath,
+            float x,
+            float y,
+            float width,
+            float height) {
+        }
     }
 }

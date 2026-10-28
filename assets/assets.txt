@@ -1,1 +1,3 @@
+README.md
 libgdx.png
+pelota.png
