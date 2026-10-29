@@ -1,6 +1,7 @@
 package org.voidteam.games.tron;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 import org.junit.jupiter.api.Test;
 import org.voidteam.engine.api.GameContext;
@@ -19,6 +20,20 @@ class TronGameTest {
         // Inicio: x=170. Siguiente celda: x=185. Mitad: x=177.5.
         assertEquals(177.5f, renderer.playerOneX, 0.01f);
         assertEquals(192.5f, renderer.playerOneRightEdge, 0.01f);
+    }
+
+    @Test
+    void dibujaAmbosJugadoresConImagenesDistinguiblesAjustadasALaCelda() {
+        RecordingRenderer renderer = new RecordingRenderer();
+        TronGame game = createGame(renderer);
+
+        game.render();
+
+        assertEquals(TronGame.PLAYER_ONE_IMAGE, renderer.playerOneAsset);
+        assertEquals(TronGame.PLAYER_TWO_IMAGE, renderer.playerTwoAsset);
+        assertNotEquals(renderer.playerOneAsset, renderer.playerTwoAsset);
+        assertEquals(15f, renderer.playerOneWidth, 0.01f);
+        assertEquals(15f, renderer.playerOneHeight, 0.01f);
     }
 
     @Test
@@ -97,6 +112,10 @@ class TronGameTest {
     private static final class RecordingRenderer implements Renderer2D {
         float playerOneX;
         float playerOneRightEdge;
+        float playerOneWidth;
+        float playerOneHeight;
+        String playerOneAsset;
+        String playerTwoAsset;
         String status;
 
         @Override
@@ -109,15 +128,10 @@ class TronGameTest {
         public void drawRect(
                 float x, float y, float width, float height,
                 float red, float green, float blue, float alpha) {
-            boolean head =
-                red == 0.2f && green == 0.8f && blue == 1f;
             boolean trail =
                 red == 0.1f && green == 0.4f && blue == 0.65f;
 
-            if (head) {
-                playerOneX = x;
-            }
-            if (head || trail) {
+            if (trail) {
                 playerOneRightEdge = Math.max(
                     playerOneRightEdge, x + width
                 );
@@ -132,7 +146,20 @@ class TronGameTest {
         }
 
         @Override
-        public void drawImage(String assetPath, float x, float y,float width, float height) {
+        public void drawImage(
+                String assetPath, float x, float y,
+                float width, float height) {
+            if (TronGame.PLAYER_ONE_IMAGE.equals(assetPath)) {
+                playerOneAsset = assetPath;
+                playerOneX = x;
+                playerOneWidth = width;
+                playerOneHeight = height;
+                playerOneRightEdge = Math.max(
+                    playerOneRightEdge, x + width
+                );
+            } else if (TronGame.PLAYER_TWO_IMAGE.equals(assetPath)) {
+                playerTwoAsset = assetPath;
+            }
         }
     }
 }
