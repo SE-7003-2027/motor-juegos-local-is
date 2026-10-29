@@ -5,6 +5,7 @@ import com.badlogic.gdx.backends.lwjgl3.Lwjgl3ApplicationConfiguration;
 import org.voidteam.engine.core.GameEngine;
 import org.voidteam.games.demo.MovingRectangleDemo;
 import org.voidteam.games.pong.PongGame;
+import org.voidteam.games.tron.TronGame;
 
 /** Launches the desktop (LWJGL3) application. */
 public class Lwjgl3Launcher {
@@ -32,9 +33,15 @@ public class Lwjgl3Launcher {
                     getDefaultConfiguration()
                 );
 
+            case "tron":
+                return new Lwjgl3Application(
+                    new GameEngine(new TronGame()),
+                    getDefaultConfiguration()
+                );
+
             default:
-                System.out.println("Este juego no esta prsente " + game);
-                System.out.println("Opciones disponibles: pong, demo");
+                System.out.println("Este juego no esta presente: " + game);
+                System.out.println("Opciones disponibles: pong, demo, tron");
                 return null;
         }
     }
