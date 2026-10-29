@@ -8,6 +8,9 @@ import org.voidteam.engine.api.Renderer2D;
 
 /** Conecta las reglas de Tron con los servicios publicos del motor. */
 public final class TronGame implements LocalGame {
+    public static final String PLAYER_ONE_IMAGE = "tron/player1.png";
+    public static final String PLAYER_TWO_IMAGE = "tron/player2.png";
+
     private static final int COLUMNS = 40;
     private static final int ROWS = 26;
     private static final float CELL_SIZE = 15f;
@@ -171,12 +174,15 @@ public final class TronGame implements LocalGame {
             red, green, blue, 1f
         );
 
-        // Dibuja el jugador en su posicion visual.
-        if (playerId == 1) {
-            drawCell(visualX, visualY, 0.2f, 0.8f, 1f);
-        } else {
-            drawCell(visualX, visualY, 1f, 0.6f, 0.15f);
-        }
+        // Dibuja el jugador en su posicion visual mediante imagen ajustada a la celda.
+        String imagePath = playerId == 1 ? PLAYER_ONE_IMAGE : PLAYER_TWO_IMAGE;
+        renderer.drawImage(
+            imagePath,
+            BOARD_X + visualX * CELL_SIZE,
+            BOARD_Y + visualY * CELL_SIZE,
+            CELL_SIZE,
+            CELL_SIZE
+        );
     }
 
     private void drawCell(

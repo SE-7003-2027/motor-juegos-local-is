@@ -1,3 +1,5 @@
 README.md
 libgdx.png
 pelota.png
+tron/player1.png
+tron/player2.png
