@@ -1,289 +1,78 @@
 # Guía de colaboración
 
-Este documento explica cómo trabajamos en equipo dentro del repositorio. Su propósito es mantener un proceso sencillo, ordenado y visible para todos.
+Estas reglas aplican a todos los integrantes, incluido el administrador.
 
-Estas reglas aplican a todos los integrantes, incluido el administrador del repositorio.
+## Reglas básicas
 
-## Regla principal
-
-Nadie debe trabajar ni subir cambios directamente a `main`.
-
-Todo cambio debe:
-
-1. corresponder a un Issue del tablero;
-2. realizarse en una rama independiente;
-3. enviarse mediante un Pull Request;
-4. ser revisado y aprobado por al menos otro integrante;
-5. integrarse solamente cuando no queden cambios solicitados ni conversaciones pendientes.
-
-## Estados del tablero
-
-Usamos los siguientes estados en GitHub Projects:
-
-- **Backlog:** trabajo considerado para sprints futuros.
-- **Ready:** tarea seleccionada para el sprint actual y lista para comenzar.
-- **In progress:** alguien está trabajando en la tarea.
-- **In review:** existe un Pull Request o documento esperando revisión.
-- **Done:** el trabajo fue aprobado, integrado y comprobado.
-
-Cada Issue debe tener una persona responsable. Cuando cambie el estado real del trabajo, la persona responsable debe mover también su tarjeta.
+- No subir cambios directamente a `main`. Usar una rama por tarea y un Pull Request (PR).
+- Trabajar únicamente en el alcance del Issue. Registrar ahí las dudas y cambios de alcance.
+- No subir credenciales, matrículas, números de cuenta, datos privados ni archivos generados.
+- Mantener un responsable y el estado real de cada tarjeta.
 
 ## Flujo de trabajo
 
-### 1. Seleccionar una tarea
+1. Selecciona un Issue de **Ready**, asígnatelo y muévelo a **In progress**.
+2. Con el directorio de trabajo limpio, actualiza `main` y crea tu rama:
 
-Antes de comenzar:
+   ```bash
+   git switch main
+   git pull --ff-only origin main
+   git switch -c tipo/descripcion
+   ```
 
-- elige un Issue ubicado en `Ready`;
-- comprueba que estés asignado como responsable;
-- lee su descripción, subtareas y criterios de aceptación;
-- pregunta en el Issue si algo no está claro.
+3. Realiza los cambios. Si modificas código, ejecuta `./gradlew build` y prueba su funcionamiento. Si modificas documentación, revisa su presentación.
+4. Agrega únicamente los archivos de la tarea, crea el commit y sube la rama.
+5. Abre un PR hacia `main`, solicita revisión y mueve la tarjeta a **In review**.
 
-Cuando comiences, mueve la tarjeta a `In progress`.
+En Windows, utiliza `gradlew.bat` en lugar de `./gradlew`.
 
-### 2. Crear una rama
+**Nombres:** ramas `tipo/descripcion`; commits `tipo: descripción breve`. Tipos: `feat`, `fix`, `docs`, `test` y `chore`.
 
-Actualiza tu copia de `main` y crea una rama exclusiva para el Issue.
+El PR debe indicar:
 
-Usamos el formato:
-
-```text
-tipo/descripcion-corta
-```
-
-Tipos permitidos:
-
-- `feat`: funcionalidad nueva.
-- `fix`: corrección de un error.
-- `docs`: documentación.
-- `test`: pruebas.
-- `chore`: configuración o mantenimiento.
-
-Ejemplos:
-
-```text
-docs/agregar-contributing
-docs/completar-readme
-feat/crear-ventana-inicial
-fix/corregir-movimiento
-```
-
-No reutilices una rama para tareas diferentes.
-
-### 3. Realizar los cambios y hacer git add a tus archivos
-
-- Trabaja solamente en lo solicitado por el Issue.
-- Evita mezclar correcciones o funcionalidades no relacionadas.
-- Comprueba tus cambios antes de subirlos.
-- Si descubres trabajo adicional, crea o propone otro Issue.
-
-Nunca subas:
-
-- contraseñas o tokens;
-- matrículas o números de cuenta;
-- datos personales innecesarios;
-- archivos generados que no pertenezcan al proyecto;
-- configuraciones privadas del editor o del sistema operativo.
-
-### 4. Crear commits
-
-Los mensajes deben ser breves y explicar claramente el cambio.
-
-Usamos el formato:
-
-```text
-tipo: descripción breve
-```
-
-Ejemplos:
-
-```text
-docs: agrega guía de colaboración
-feat: crea ventana inicial del motor
-fix: corrige límite de movimiento
-```
-
-Puedes realizar varios commits mientras trabajas. El Pull Request se integrará con `Squash and merge` para mantener un historial claro en `main`.
-
-### 5. Abrir un Pull Request
-
-Cuando el trabajo esté listo:
-
-1. sube tu rama a GitHub;
-2. abre un Pull Request hacia `main`;
-3. escribe un título claro;
-4. explica qué cambió y cómo lo comprobaste;
-5. relaciona el Pull Request con su Issue;
-6. solicita la revisión de otro integrante;
-7. mueve la tarjeta a `In review`.
-
-Para relacionar y cerrar automáticamente el Issue al integrar, incluye en la descripción:
-
-```text
-Closes #NUMERO_DEL_ISSUE
-```
-
-Ejemplo:
-
-```text
-Closes #6
-```
-
-La descripción del Pull Request debe incluir como mínimo:
-
-```markdown
-## Qué cambia
-
-Descripción breve del cambio realizado.
-
-## Cómo se comprobó
-
-Explicación de la revisión, prueba o ejecución realizada.
-
-## Issue relacionado
-
-Closes #NUMERO_DEL_ISSUE
-```
+- Qué cambió.
+- Cómo se comprobó y cómo probarlo.
+- `Closes #NUMERO` para relacionar y cerrar el Issue.
 
 ## Revisión de Pull Requests
 
-La persona autora no puede aprobar su propio Pull Request. Todo Pull Request necesita al menos una aprobación de otro integrante.
+Lee el Issue y **Files changed**. Comprueba que cumple la tarea, funciona y no incluye cambios ajenos ni datos privados.
 
-### Responsabilidades del autor
-
-Antes de solicitar revisión, el autor debe comprobar que:
-
-- el cambio cumple el Issue y sus criterios de aceptación;
-- no hay cambios ajenos a la tarea;
-- el proyecto compila o la documentación se muestra correctamente;
-- no hay datos personales ni credenciales;
-- la descripción explica cómo comprobar el resultado;
-- la tarjeta se encuentra en `In review`.
-
-El autor debe responder los comentarios y realizar los cambios solicitados. No debe resolver una conversación hasta haber atendido o acordado el comentario con el revisor.
-
-### Responsabilidades del revisor
-
-El revisor debe leer el Issue relacionado y revisar la pestaña `Files changed` del Pull Request.
-
-### Probar un Pull Request localmente
-
-Si el cambio modifica código ejecutable, el revisor debe descargar la versión propuesta, compilarla y probarla antes de aprobar.
-
-Cambiar de rama no modifica los commits guardados en tu propia rama. Sin embargo, los cambios locales que todavía no tienen commit pueden mezclarse o impedir el cambio de rama. Por eso, primero ejecuta:
+Para probar código localmente, primero confirma que tu directorio esté limpio:
 
 ```bash
 git status
+git fetch origin
+git switch --detach origin/NOMBRE-DE-LA-RAMA
+./gradlew build
 ```
 
-#### Si tu directorio de trabajo está limpio
+Ejecuta la aplicación siguiendo el PR. Al terminar, comprueba nuevamente `git status` y regresa con:
 
-1. En la página del Pull Request, identifica su número y el nombre de su rama.
-2. Descarga la información más reciente del repositorio:
+```bash
+git switch -
+```
 
-   ```bash
-   git fetch origin
-   ```
+No descartes cambios locales para cambiar de rama.
 
-3. Abre temporalmente la rama remota del Pull Request sin crear trabajo nuevo sobre ella:
+En **Review changes**, selecciona:
 
-   ```bash
-   git switch --detach origin/NOMBRE-DE-LA-RAMA
-   ```
+- **Comment:** observaciones no bloqueantes.
+- **Request changes:** correcciones necesarias.
+- **Approve:** cambio revisado y aceptado.
 
-   Ejemplo:
+## Integrar y terminar
 
-   ```bash
-   git switch --detach origin/feat/crear-ventana-inicial
-   ```
+Integra únicamente cuando la última versión esté comprobada, tenga la aprobación requerida de otro integrante y no queden correcciones ni conversaciones pendientes. La aprobación debe cumplir también la regla de revisión independiente de la última subida.
 
-4. Compila, ejecuta y prueba el proyecto siguiendo las instrucciones del Pull Request.
-5. Vuelve a comprobar que no hayas creado cambios que deban conservarse:
+Usa **Squash and merge**, elimina la rama remota y verifica que el Issue quede cerrado. Después mueve su tarjeta a **Done**.
 
-   ```bash
-   git status
-   ```
+Los cambios posteriores a una aprobación deben revisarse nuevamente.
 
-6. Regresa a la rama en la que estabas antes:
+## Cambios en la Wiki y seguimiento
 
-   ```bash
-   git switch -
-   ```
+La Wiki tiene un historial separado: solicita revisión de otro integrante antes de cerrar su Issue.
 
+Registra observaciones del código en el PR y decisiones importantes en el Issue o la documentación.
 
-
-
-Nunca uses comandos que descarten cambios locales si no estás completamente seguro de que esos cambios no se necesitan.
-
-Durante la revisión debe comprobar:
-
-1. que el cambio cumple la tarea solicitada.
-2. compila, se ejecuta o se muestra correctamente, según corresponda.
-3. los nombres, el código y la documentación se entienden.
-4. no se incluyeron cambios que pertenecen a otra tarea.
-5. no hay credenciales, datos personales ni archivos innecesarios.
-6. la documentación fue actualizada cuando el uso del proyecto cambió.
-
-Al terminar la revisión, debe seleccionar una de estas opciones:
-
-- **Comment:** deja observaciones o sugerencias que no impiden integrar.
-- **Request changes:** solicita correcciones necesarias antes de integrar.
-- **Approve:** confirma que el cambio puede integrarse.
-
-No se debe aprobar un Pull Request sin revisarlo. Los comentarios deben ser claros para que se puedan atender los cambios rapidamente.
-
-Si se agregan cambios importantes después de una aprobación, el Pull Request debe revisarse nuevamente.
-
-## Integrar el Pull Request
-
-Un Pull Request puede integrarse cuando:
-
-- recibió al menos una aprobación;
-- no tiene una revisión con `Request changes` pendiente;
-- todas las conversaciones fueron atendidas y resueltas;
-- cumple los criterios de aceptación del Issue;
-- la versión más reciente fue comprobada.
-
-Para integrarlo:
-
-1. selecciona `Squash and merge`;
-2. usa un título final claro para el commit;
-3. confirma la integración;
-4. elimina la rama en GitHub;
-5. verifica que el Issue se haya cerrado;
-6. mueve la tarjeta a `Done` si no se movió automáticamente.
-
-## Criterio de terminado
-
-Una tarea está `Done` solamente cuando:
-
-- cumple todos sus criterios de aceptación;
-- sus cambios fueron comprobados;
-- recibió la aprobación de otro integrante;
-- fue integrada en `main`;
-- el Issue quedó cerrado;
-- la tarjeta está en `Done`.
-
-
-## Cambios en la Wiki
-
-La Wiki tiene un historial separado y sus cambios no pasan por los Pull Requests del repositorio principal.
-
-Para una tarea de la Wiki:
-
-1. mueve el Issue a `In progress`;
-2. edita la página correspondiente;
-3. escribe un mensaje claro al guardar;
-4. mueve la tarjeta a `In review`;
-5. pide a otro integrante que revise la página;
-6. atiende las observaciones;
-7. cierra el Issue y mueve la tarjeta a `Done` cuando sea aprobada.
-
-## Comunicación y decisiones
-
-- Las dudas de una tarea deben escribirse en su Issue.
-- Las observaciones sobre un cambio deben escribirse en su Pull Request.
-- Las decisiones importantes deben registrarse en la Wiki o en el documento correspondiente.
-- Evita que una decisión importante exista solamente en mensajes privados.
-
-Si una tarea cambia de alcance, actualiza primero el Issue para que todo el equipo conozca el nuevo acuerdo.
+**Backlog** contiene propuestas futuras; **Ready**, tareas listas para comenzar.
