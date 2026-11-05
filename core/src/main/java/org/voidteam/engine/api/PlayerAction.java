@@ -7,5 +7,6 @@ public enum PlayerAction {
     UP,
     DOWN,
     LEFT,
-    RIGHT
+    RIGHT,
+    FIRE
 }
