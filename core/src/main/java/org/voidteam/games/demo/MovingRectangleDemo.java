@@ -89,6 +89,7 @@ public class MovingRectangleDemo implements LocalGame {
     @Override
     public void render() {
         renderer.clear(0.15f, 0.15f, 0.2f, 1f);
+        drawRotationSamples();
 
         renderer.drawText(
         "DEMO DEL MOTOR 2D",
@@ -146,6 +147,20 @@ public class MovingRectangleDemo implements LocalGame {
             "pelota.png",
             player2X, player2Y, SIZE, SIZE
         );
+    }
+
+    private void drawRotationSamples() {
+        renderer.drawText("Rotacion de imagenes - punto rojo: centro", 20f, 350f, 1f, 1f, 1f, 1f);
+        for (int i = 0; i < 4; i++) {
+            float x = 80f + i * 140f;
+            float y = 250f;
+            float width = 100f;
+            float height = 40f;
+            float angle = i * 90f;
+            renderer.drawImage("libgdx.png", x, y, width, height, angle);
+            renderer.drawRect(x + width / 2f - 2f, y + height / 2f - 2f, 4f, 4f, 1f, 0.3f, 0.3f, 1f);
+            renderer.drawText((int) angle + " grados", x, 205f, 1f, 1f, 1f, 1f);
+        }
     }
 
     @Override

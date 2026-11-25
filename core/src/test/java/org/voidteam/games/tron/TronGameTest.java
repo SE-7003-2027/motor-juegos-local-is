@@ -146,17 +146,13 @@ class TronGameTest {
         }
 
         @Override
-        public void drawImage(
-                String assetPath, float x, float y,
-                float width, float height) {
+        public void drawImage(String assetPath, float x, float y, float width, float height, float rotationDegrees) {
             if (TronGame.PLAYER_ONE_IMAGE.equals(assetPath)) {
                 playerOneAsset = assetPath;
                 playerOneX = x;
                 playerOneWidth = width;
                 playerOneHeight = height;
-                playerOneRightEdge = Math.max(
-                    playerOneRightEdge, x + width
-                );
+                playerOneRightEdge = Math.max(playerOneRightEdge, x + width);
             } else if (TronGame.PLAYER_TWO_IMAGE.equals(assetPath)) {
                 playerTwoAsset = assetPath;
             }

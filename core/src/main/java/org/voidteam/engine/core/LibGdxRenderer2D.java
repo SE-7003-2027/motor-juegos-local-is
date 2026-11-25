@@ -58,7 +58,7 @@ public class LibGdxRenderer2D implements Renderer2D {
     }
 
     @Override
-    public void drawImage(String assetPath, float x, float y, float width, float height) {
+    public void drawImage(String assetPath, float x, float y, float width, float height, float rotationDegrees) {
 
         if (assetPath == null || assetPath.isBlank()) {
             throw new IllegalArgumentException(
@@ -92,7 +92,7 @@ public class LibGdxRenderer2D implements Renderer2D {
         }
 
         batch.begin();
-        batch.draw(texture, x, y, width, height);
+        batch.draw(texture, x, y, width / 2f, height / 2f, width, height, 1f, 1f, rotationDegrees, 0, 0, texture.getWidth(), texture.getHeight(), false, false);
         batch.end();
     }
 
