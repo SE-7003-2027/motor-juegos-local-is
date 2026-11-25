@@ -39,6 +39,14 @@ public interface Renderer2D {
      * @param width     ancho con el que se dibujará la imagen
      * @param height    alto con el que se dibujará la imagen
      */
-    void drawImage(String assetPath, float x, float y,
-                   float width, float height);
+    default void drawImage(String assetPath, float x, float y, float width, float height) {
+        drawImage(assetPath, x, y, width, height, 0f);
+    }
+
+    /**
+     * Dibuja una imagen rotada alrededor de su centro.
+     * x e y indican la esquina inferior izquierda antes de rotar.
+     * Los ángulos positivos giran en sentido antihorario, en grados.
+     */
+    void drawImage(String assetPath, float x, float y, float width, float height, float rotationDegrees);
 }

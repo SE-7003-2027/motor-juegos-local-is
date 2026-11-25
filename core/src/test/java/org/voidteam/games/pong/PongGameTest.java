@@ -93,12 +93,8 @@ class PongGameTest {
         }
 
         @Override
-        public void drawImage(
-            String assetPath,
-            float x,
-            float y,
-            float width,
-            float height) {
+        public void drawImage(String assetPath, float x, float y, float width, float height, float rotationDegrees) {
+            throw new UnsupportedOperationException("Pong no utiliza imágenes en estas pruebas");
         }
     }
 }
